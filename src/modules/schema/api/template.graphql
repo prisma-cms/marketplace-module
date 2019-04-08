@@ -1,0 +1,7 @@
+
+type TemplateResponse{
+  success: Boolean!
+  message: String
+  errors: [Error!]!
+  data: Template
+}

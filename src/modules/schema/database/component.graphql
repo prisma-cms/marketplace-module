@@ -1,0 +1,7 @@
+
+type Component {
+  id: ID! @unique
+  name: ID! @unique
+  props: Json @default(value: {})
+  components: Json @default(value: [])
+}

@@ -1,3 +1,8 @@
+1.2.0
+===============================
+- Public release
+- Added Template
+
 1.1.5
 ===============================
 - Upgraded nodemon

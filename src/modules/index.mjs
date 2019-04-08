@@ -4,6 +4,7 @@ import fs from "fs";
 import chalk from "chalk";
 
 import PrismaModule from "@prisma-cms/prisma-module";
+import UserModule from "@prisma-cms/user-module";
 
 import MergeSchema from 'merge-graphql-schemas';
 
@@ -17,7 +18,7 @@ const { createWriteStream, unlinkSync } = fs;
 
 const { fileLoader, mergeTypes } = MergeSchema
 
-
+import TemplateModule from "./Template";
 
 class Module extends PrismaModule {
 
@@ -28,6 +29,11 @@ class Module extends PrismaModule {
 
     Object.assign(this, {
     });
+
+    this.mergeModules([
+      UserModule,
+      TemplateModule,
+    ]);
 
   }
 

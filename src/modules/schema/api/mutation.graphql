@@ -1,0 +1,13 @@
+
+type Mutation {
+    
+  createTemplateProcessor(
+    data: TemplateCreateInput!
+  ): TemplateResponse!
+
+  updateTemplateProcessor(
+    data: TemplateUpdateInput!
+    where: TemplateWhereUniqueInput!
+  ): TemplateResponse!
+
+}

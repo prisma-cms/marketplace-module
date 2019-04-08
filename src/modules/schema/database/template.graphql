@@ -1,0 +1,8 @@
+
+type Template {
+  id: ID! @unique
+  name: ID
+  props: Json @default(value: {})
+  components: Json @default(value: [])
+  CreatedBy: User
+}

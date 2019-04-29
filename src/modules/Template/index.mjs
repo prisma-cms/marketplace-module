@@ -139,12 +139,15 @@ class TemplateProcessor extends PrismaProcessor {
   async mutate(objectType, args, into) {
 
     let {
-      data: {
-        props,
-        components,
-        ...data
-      },
+      data: propsData,
     } = args;
+
+    const {
+      props,
+      components,
+      ...data
+    } = propsData || {};
+    
 
     if (props !== undefined && !props) {
       props = {};

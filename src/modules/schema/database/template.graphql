@@ -1,8 +1,17 @@
 
 type Template {
   id: ID! @unique
-  name: ID
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  externalKey: ID
+  name: String
+  description: String
+  component: String
   props: Json @default(value: {})
   components: Json @default(value: [])
+  rank: Int @default(value: 0)
+  Parent: Template @relation(name: "Templates")
+  # Childs: [Template!]! @relation(name: "Templates")
   CreatedBy: User
+  Project: Project
 }

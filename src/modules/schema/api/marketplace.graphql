@@ -1,0 +1,6 @@
+type MarketplaceAuthResponse {
+  success: Boolean!
+  message: String
+  errors: [Error!]!
+  data: String
+}

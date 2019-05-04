@@ -1,0 +1,2 @@
+"""Automaticly include all fields from schema"""
+directive @prismaCmsFragmentAllFields(if: Boolean = true) on FRAGMENT_DEFINITION

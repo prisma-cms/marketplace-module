@@ -1,3 +1,7 @@
+1.2.3
+===============================
+- Added directive @prismaCmsFragmentAllFields
+
 1.2.2
 ===============================
 - Fix delete template

@@ -1,3 +1,8 @@
+1.2.5
+===============================
+- Added relation TemplateProject
+- Added relation TemplatePrismaProject
+
 1.2.4
 ===============================
 - Remove relation TemplateProject

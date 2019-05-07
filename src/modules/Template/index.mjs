@@ -21,15 +21,23 @@ class TemplateProcessor extends PrismaProcessor {
 
   async create(objectType, args, info) {
 
+
+    const {
+      ctx,
+    } = this;
+
     const {
       db,
-    } = this.ctx;
+      getProjectFromRequest,
+    } = ctx;
+
 
     let {
       data: {
         props = {},
         components = [],
         Parent,
+        PrismaProject,
         ...data
       },
       ...otherArgs
@@ -41,15 +49,59 @@ class TemplateProcessor extends PrismaProcessor {
     } = await this.getUser(true);
 
 
+
+    /**
+     * Пытаемся получить проект по заголовкам запроса.
+     * Если получим, то устанавливаем в качестве проекта.
+     * Если нет, то сбрасываем.
+     */
+    const project = await getProjectFromRequest(ctx);
+
+    if (project) {
+
+      const {
+        id: projectId,
+      } = project;
+
+      PrismaProject = {
+        connect: {
+          id: projectId,
+        },
+      }
+
+    }
+    else {
+      PrismaProject = undefined;
+    }
+
+    // console.log("PrismaProject", PrismaProject);
+
+
     /**
      * Если указан родитель, проверяем, чтобы не было еще ни одного корневого шаблона
      */
     if (!Parent || !Parent.connect) {
 
-      const exists = await db.exists.Template({
+      let where = {
         Parent: null,
         component: "Page",
-      });
+      };
+
+      if (project) {
+
+        const {
+          id: projectId,
+        } = project;
+
+        Object.assign(where, {
+          PrismaProject: {
+            id: projectId,
+          },
+        });
+
+      }
+
+      const exists = await db.exists.Template(where);
 
       if (exists) {
         this.addError("Can not create more than one root template");
@@ -73,6 +125,7 @@ class TemplateProcessor extends PrismaProcessor {
       props,
       components,
       Parent,
+      PrismaProject,
       CreatedBy: {
         connect: {
           id: currentUserId,
@@ -99,6 +152,9 @@ class TemplateProcessor extends PrismaProcessor {
       data: {
         Parent,
         component,
+
+        // Deny change Project
+        PrismaProject,
         ...data
       },
       ...otherArgs
@@ -147,7 +203,7 @@ class TemplateProcessor extends PrismaProcessor {
       components,
       ...data
     } = propsData || {};
-    
+
 
     if (props !== undefined && !props) {
       props = {};

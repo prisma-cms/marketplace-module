@@ -13,7 +13,7 @@ type Template {
   Parent: Template @relation(name: "Templates")
   # Childs: [Template!]! @relation(name: "Templates")
   CreatedBy: User
-  # Project: Project @relation(name: "TemplateProject")
+  Project: Project @relation(name: "TemplateProject")
 
-  # PrismaProject: [Project!]! @relation(name: "PrismaProjectTemplates")
+  PrismaProject: Project @relation(name: "PrismaProjectTemplates")
 }

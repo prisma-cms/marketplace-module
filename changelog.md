@@ -1,3 +1,7 @@
+1.2.4
+===============================
+- Remove relation TemplateProject
+
 1.2.3
 ===============================
 - Added directive @prismaCmsFragmentAllFields

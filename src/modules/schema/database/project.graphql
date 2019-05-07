@@ -2,4 +2,7 @@
 type Project {
   id: ID! @unique
   name: String!
+  domain: String @unique
+
+  PrismaTemplates: [Template!]! @relation(name: "PrismaProjectTemplates")
 }

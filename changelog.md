@@ -1,3 +1,7 @@
+1.2.6
+===============================
+- Templates by hostname
+
 1.2.5
 ===============================
 - Added relation TemplateProject

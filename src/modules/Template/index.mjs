@@ -5,6 +5,8 @@ import PrismaModule from "@prisma-cms/prisma-module";
 
 import chalk from "chalk";
 
+import URI from "urijs";
+
 class TemplateProcessor extends PrismaProcessor {
 
 
@@ -53,7 +55,7 @@ class TemplateProcessor extends PrismaProcessor {
     /**
      * Пытаемся получить проект по заголовкам запроса.
      * Если получим, то устанавливаем в качестве проекта.
-     * Если нет, то сбрасываем.
+     * Если нет, то создаем новый проект.
      */
     const project = await getProjectFromRequest(ctx);
 
@@ -71,7 +73,60 @@ class TemplateProcessor extends PrismaProcessor {
 
     }
     else {
-      PrismaProject = undefined;
+      // PrismaProject = undefined;
+      
+      /**
+       * Создаем новый проект
+       */
+
+
+      const {
+        request: {
+          headers,
+        },
+        db,
+      } = ctx;
+
+
+      // console.log("headers", headers);
+
+      const {
+        origin,
+      } = headers;
+
+      if (!origin) {
+        return this.addError("Can not get request origin");
+      }
+
+      const uri = new URI(origin);
+
+      let domain = uri.hostname();
+
+
+      if (!domain) {
+        return this.addError("Can not get request domain");
+      }
+
+
+      // return false;
+
+      PrismaProject = {
+        create: {
+          domain,
+          name: domain,
+          url: origin,
+          CreatedBy: {
+            connect: {
+              id: currentUserId,
+            },
+          },
+          PrismaUsers: {
+            connect: {
+              id: currentUserId,
+            },
+          },
+        },
+      }
     }
 
     // console.log("PrismaProject", PrismaProject);

@@ -1,7 +1,7 @@
 {
   "name": "@prisma-cms/marketplace-module",
   "description": "Marketplace module for @prisma-cms",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "main": "src/",
   "files": [
     "src"
@@ -17,7 +17,8 @@
     "@prisma-cms/prisma-module": "latest",
     "@prisma-cms/user-module": "latest",
     "chalk": "^2.4.1",
-    "merge-graphql-schemas": "latest"
+    "merge-graphql-schemas": "latest",
+    "urijs": "^1.19.1"
   },
   "devDependencies": {
     "@prisma-cms/server": "latest",

@@ -5,4 +5,5 @@ type Project {
   domain: String @unique
 
   PrismaTemplates: [Template!]! @relation(name: "PrismaProjectTemplates")
+  PrismaUsers: [User!]! @relation(name: "PrismaProjectUsers")
 }

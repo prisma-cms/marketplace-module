@@ -9,6 +9,8 @@ type Template {
   component: String
   props: Json @default(value: {})
   components: Json @default(value: [])
+  """Additional data"""
+  data: Json
   rank: Int @default(value: 0)
   Parent: Template @relation(name: "Templates")
   # Childs: [Template!]! @relation(name: "Templates")

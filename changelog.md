@@ -1,3 +1,7 @@
+1.2.8
+===============================
+- Rename Template::data to Template::vars
+
 1.2.7
 ===============================
 - Added Template::data

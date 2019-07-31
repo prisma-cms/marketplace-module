@@ -1,3 +1,7 @@
+1.2.9
+===============================
+- Fix getTemplate by domain
+
 1.2.8
 ===============================
 - Rename Template::data to Template::vars

@@ -59,6 +59,8 @@ class TemplateProcessor extends PrismaProcessor {
      */
     const project = await getProjectFromRequest(ctx);
 
+    let domain;
+
     if (project) {
 
       const {
@@ -74,7 +76,7 @@ class TemplateProcessor extends PrismaProcessor {
     }
     else {
       // PrismaProject = undefined;
-      
+
       /**
        * Создаем новый проект
        */
@@ -100,13 +102,14 @@ class TemplateProcessor extends PrismaProcessor {
 
       const uri = new URI(origin);
 
-      let domain = uri.hostname();
+      domain = uri.hostname();
 
 
       if (!domain) {
         return this.addError("Can not get request domain");
       }
 
+      // console.log("domain", domain);
 
       // return false;
 
@@ -156,7 +159,29 @@ class TemplateProcessor extends PrismaProcessor {
 
       }
 
-      const exists = await db.exists.Template(where);
+      let templateWhere = {
+        ...where,
+      }
+
+      if (domain) {
+        templateWhere = {
+          ...templateWhere,
+          OR: [
+            {
+              PrismaProject: null
+            },
+            {
+              PrismaProject: {
+                domain,
+              }
+            },
+          ]
+        }
+      }
+
+      // console.log("templateWhere", JSON.stringify(templateWhere, true, 2));
+
+      const exists = await db.exists.Template(templateWhere);
 
       if (exists) {
         this.addError("Can not create more than one root template");

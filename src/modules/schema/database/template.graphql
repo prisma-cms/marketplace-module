@@ -7,8 +7,8 @@ type Template {
   name: String
   description: String
   component: String
-  props: Json @default(value: {})
-  components: Json @default(value: [])
+  props: Json @default(value: "{}")
+  components: Json @default(value: "[]")
   """Additional data"""
   vars: Json
   rank: Int @default(value: 0)

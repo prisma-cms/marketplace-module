@@ -10,6 +10,6 @@ type Mutation {
     where: TemplateWhereUniqueInput!
   ): TemplateResponse!
 
-  marketplaceSignin(where: UserWhereUniqueInput!, data: SigninDataInput!): MarketplaceAuthResponse!
+  # marketplaceSignin(where: UserWhereUniqueInput!, data: SigninDataInput!): MarketplaceAuthResponse!
 
 }

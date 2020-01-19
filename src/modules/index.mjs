@@ -96,102 +96,102 @@ class Module extends PrismaModule {
 
     Object.assign(resolvers.Mutation, {
 
-      marketplaceSignin: async (source, args, ctx, info) => {
+      // marketplaceSignin: async (source, args, ctx, info) => {
 
-        console.log("marketplaceSignin args", args);
+      //   console.log("marketplaceSignin args", args);
 
-        const {
-          currentUser,
-          db,
-        } = ctx;
+      //   const {
+      //     currentUser,
+      //     db,
+      //   } = ctx;
 
-        const {
-          id: currentUserId,
-        } = currentUser || {};
+      //   const {
+      //     id: currentUserId,
+      //   } = currentUser || {};
 
 
-        if (!currentUserId) {
-          throw new Error("Please, login");
-        }
+      //   if (!currentUserId) {
+      //     throw new Error("Please, login");
+      //   }
 
-        const query = `
-          mutation signin (
-            $where: UserWhereUniqueInput!
-            $data: SigninDataInput!
-          ){
-            signin(
-              where: $where
-              data: $data
-            ){
-              success
-              message
-              errors{
-                key
-                message
-              }
-              token
-              data{
-                id
-                username
-              }
-            }
-          }
-        `;
+      //   const query = `
+      //     mutation signin (
+      //       $where: UserWhereUniqueInput!
+      //       $data: SigninDataInput!
+      //     ){
+      //       signin(
+      //         where: $where
+      //         data: $data
+      //       ){
+      //         success
+      //         message
+      //         errors{
+      //           key
+      //           message
+      //         }
+      //         token
+      //         data{
+      //           id
+      //           username
+      //         }
+      //       }
+      //     }
+      //   `;
 
-        const body = {
-          query,
-          variables: args,
-        };
+      //   const body = {
+      //     query,
+      //     variables: args,
+      //   };
 
-        const response = await fetch('http://localhost:4100', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        })
-          .then(rawResponse => {
+      //   const response = await fetch('http://localhost:4100', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body: JSON.stringify(body)
+      //   })
+      //     .then(rawResponse => {
 
-            return rawResponse.json();
-          })
+      //       return rawResponse.json();
+      //     })
 
-        // console.log("response", response);
+      //   // console.log("response", response);
 
-        const {
-          success,
-          message,
-          errors,
-          token,
-        } = response.data.signin;
+      //   const {
+      //     success,
+      //     message,
+      //     errors,
+      //     token,
+      //   } = response.data.signin;
 
-        /**
-         * Если успешно, то обнавляем API-токен пользователя
-         */
+      //   /**
+      //    * Если успешно, то обнавляем API-токен пользователя
+      //    */
 
-        // console.log("response success", success);
-        // console.log("response token", token);
+      //   // console.log("response success", success);
+      //   // console.log("response token", token);
 
-        if (success && token) {
+      //   if (success && token) {
 
-          await db.mutation.updateUser({
-            where: {
-              id: currentUserId,
-            },
-            data: {
-              marketplaceToken: token,
-            },
-          });
-        }
+      //     await db.mutation.updateUser({
+      //       where: {
+      //         id: currentUserId,
+      //       },
+      //       data: {
+      //         marketplaceToken: token,
+      //       },
+      //     });
+      //   }
 
-        return {
-          success,
-          message,
-          errors,
-          data: token,
-        }
+      //   return {
+      //     success,
+      //     message,
+      //     errors,
+      //     data: token,
+      //   }
 
-      },
+      // },
 
     });
 
